@@ -1,0 +1,854 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>4.4</version>
+    <date>2020-08-07T11:11:26Z</date>
+    <groups>
+        <group>
+            <name>RZN Принтеры</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template HP CM6040 SNMPv2</template>
+            <name>Template HP CM6040 SNMPv2</name>
+            <description>Made from Template Net Network Generic Device version: 0.15&#13;
+Current version of template: 0.1</description>
+            <templates>
+                <template>
+                    <name>Template Module EtherLike-MIB SNMPv2</name>
+                </template>
+                <template>
+                    <name>Template Module Generic SNMPv2</name>
+                </template>
+                <template>
+                    <name>Template Module Interfaces Simple SNMPv2</name>
+                </template>
+            </templates>
+            <groups>
+                <group>
+                    <name>RZN Принтеры</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Cartridge</name>
+                </application>
+                <application>
+                    <name>Drum unit</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Black cartridge toner lvl %</name>
+                    <type>CALCULATED</type>
+                    <key>black.toner.lvl</key>
+                    <delay>2m</delay>
+                    <history>2w</history>
+                    <trends>180d</trends>
+                    <units>%</units>
+                    <params>100*last(&quot;black.toner.remaining&quot;)/last(&quot;black.toner.max&quot;)</params>
+                    <description>Black toner remaining lvl in %</description>
+                    <applications>
+                        <application>
+                            <name>Cartridge</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}=0</expression>
+                            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                            <recovery_expression>{last()}&gt;0</recovery_expression>
+                            <name>Black cartridge toner is runned out</name>
+                            <priority>HIGH</priority>
+                            <description>If the toner is 0, then it should have run out.</description>
+                            <dependencies>
+                                <dependency>
+                                    <name>Black toner remaining level is lower than 10%</name>
+                                    <expression>{Template HP CM6040 SNMPv2:black.toner.lvl.last()}&lt;10</expression>
+                                    <recovery_expression>{Template HP CM6040 SNMPv2:black.toner.lvl.last()}&gt;10</recovery_expression>
+                                </dependency>
+                            </dependencies>
+                            <tags>
+                                <tag>
+                                    <tag>#printer</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                        <trigger>
+                            <expression>{last()}&lt;10</expression>
+                            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                            <recovery_expression>{last()}&gt;10</recovery_expression>
+                            <name>Black toner remaining level is lower than 10%</name>
+                            <priority>AVERAGE</priority>
+                            <tags>
+                                <tag>
+                                    <tag>#printer</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Black cartridge toner max lvl</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>public</snmp_community>
+                    <snmp_oid>1.3.6.1.2.1.43.11.1.1.8.1.1</snmp_oid>
+                    <key>black.toner.max</key>
+                    <delay>2m</delay>
+                    <history>2w</history>
+                    <trends>180d</trends>
+                    <units>Lists</units>
+                    <port>161</port>
+                    <description>Black cartridge toner max lvl in lists</description>
+                    <applications>
+                        <application>
+                            <name>Cartridge</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Black cartridge toner lvl</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>public</snmp_community>
+                    <snmp_oid>1.3.6.1.2.1.43.11.1.1.9.1.1</snmp_oid>
+                    <key>black.toner.remaining</key>
+                    <delay>2m</delay>
+                    <history>2w</history>
+                    <trends>180d</trends>
+                    <units>Lists</units>
+                    <port>161</port>
+                    <description>Black cartridge toner remaining in lists</description>
+                    <applications>
+                        <application>
+                            <name>Cartridge</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Cyan cartridge toner lvl %</name>
+                    <type>CALCULATED</type>
+                    <key>cyan.toner.lvl</key>
+                    <delay>2m</delay>
+                    <history>2w</history>
+                    <trends>180d</trends>
+                    <units>%</units>
+                    <params>100*last(&quot;cyan.toner.remaining&quot;)/last(&quot;cyan.toner.max&quot;)</params>
+                    <description>Cyan toner remaining lvl in %</description>
+                    <applications>
+                        <application>
+                            <name>Cartridge</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}=0</expression>
+                            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                            <recovery_expression>{last()}&gt;0</recovery_expression>
+                            <name>Cyan cartridge toner is runned out</name>
+                            <priority>HIGH</priority>
+                            <description>If the toner is 0, then it should have run out.</description>
+                            <dependencies>
+                                <dependency>
+                                    <name>Cyan toner remaining level is lower than 10%</name>
+                                    <expression>{Template HP CM6040 SNMPv2:cyan.toner.lvl.last()}&lt;10</expression>
+                                </dependency>
+                            </dependencies>
+                            <tags>
+                                <tag>
+                                    <tag>#printer</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                        <trigger>
+                            <expression>{last()}&lt;10</expression>
+                            <name>Cyan toner remaining level is lower than 10%</name>
+                            <priority>AVERAGE</priority>
+                            <description>Level of remeinaning cyan toner is lower than 10%</description>
+                            <tags>
+                                <tag>
+                                    <tag>#printer</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Cyan cartridge toner max lvl</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>public</snmp_community>
+                    <snmp_oid>1.3.6.1.2.1.43.11.1.1.8.1.2</snmp_oid>
+                    <key>cyan.toner.max</key>
+                    <delay>2m</delay>
+                    <history>2w</history>
+                    <trends>180d</trends>
+                    <units>Lists</units>
+                    <port>161</port>
+                    <description>Max free space in cyan drum unit for waste toner remaining, counting in lists</description>
+                    <applications>
+                        <application>
+                            <name>Cartridge</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Cyan cartridge toner lvl</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>public</snmp_community>
+                    <snmp_oid>1.3.6.1.2.1.43.11.1.1.9.1.2</snmp_oid>
+                    <key>cyan.toner.remaining</key>
+                    <delay>2m</delay>
+                    <history>2w</history>
+                    <trends>180d</trends>
+                    <port>161</port>
+                    <description>Cyan cartridge toner remaining in lists</description>
+                    <applications>
+                        <application>
+                            <name>Cartridge</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Black drum unit toner lvl %</name>
+                    <type>CALCULATED</type>
+                    <key>drum.black.toner.lvl</key>
+                    <delay>2m</delay>
+                    <history>2w</history>
+                    <trends>180d</trends>
+                    <units>%</units>
+                    <params>100*last(&quot;drum.black.toner.remaining&quot;)/last(&quot;drum.black.toner.max&quot;)</params>
+                    <description>Free space in black drum unit for waste toner remaining, counting in %</description>
+                    <applications>
+                        <application>
+                            <name>Drum unit</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}&lt;10</expression>
+                            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                            <recovery_expression>{last()}&gt;10</recovery_expression>
+                            <name>Black drum unit free space remaining level is lower than 10%</name>
+                            <priority>HIGH</priority>
+                            <tags>
+                                <tag>
+                                    <tag>#printer</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Black drum unit toner max lvl</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>public</snmp_community>
+                    <snmp_oid>1.3.6.1.2.1.43.11.1.1.8.1.5</snmp_oid>
+                    <key>drum.black.toner.max</key>
+                    <delay>2m</delay>
+                    <history>2w</history>
+                    <trends>180d</trends>
+                    <units>Lists</units>
+                    <port>161</port>
+                    <description>Max free space in black drum unit for waste toner remaining, counting in lists</description>
+                    <applications>
+                        <application>
+                            <name>Drum unit</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Black drum unit toner lvl</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>public</snmp_community>
+                    <snmp_oid>1.3.6.1.2.1.43.11.1.1.9.1.5</snmp_oid>
+                    <key>drum.black.toner.remaining</key>
+                    <delay>2m</delay>
+                    <history>2w</history>
+                    <trends>180d</trends>
+                    <units>Lists</units>
+                    <port>161</port>
+                    <description>Free space in black drum unit for waste toner remaining, counting in lists</description>
+                    <applications>
+                        <application>
+                            <name>Drum unit</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Cyan drum unit toner lvl %</name>
+                    <type>CALCULATED</type>
+                    <key>drum.cyan.toner.lvl</key>
+                    <delay>2m</delay>
+                    <history>2w</history>
+                    <trends>180d</trends>
+                    <units>%</units>
+                    <params>100*last(&quot;drum.cyan.toner.remaining&quot;)/last(&quot;drum.cyan.toner.max&quot;)</params>
+                    <description>Free space in cyan drum unit for waste toner remaining, counting in %</description>
+                    <applications>
+                        <application>
+                            <name>Drum unit</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}&lt;10</expression>
+                            <name>Cyan drum unit free space remaining level is lower than 10%</name>
+                            <priority>HIGH</priority>
+                            <tags>
+                                <tag>
+                                    <tag>#printer</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Cyan drum unit toner max lvl</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>public</snmp_community>
+                    <snmp_oid>1.3.6.1.2.1.43.11.1.1.8.1.6</snmp_oid>
+                    <key>drum.cyan.toner.max</key>
+                    <delay>2m</delay>
+                    <history>2w</history>
+                    <trends>180d</trends>
+                    <units>Lists</units>
+                    <port>161</port>
+                    <description>Cyan drum unit toner max in lists</description>
+                    <applications>
+                        <application>
+                            <name>Drum unit</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Cyan drum unit toner lvl</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>public</snmp_community>
+                    <snmp_oid>1.3.6.1.2.1.43.11.1.1.9.1.6</snmp_oid>
+                    <key>drum.cyan.toner.remaining</key>
+                    <delay>2m</delay>
+                    <history>2w</history>
+                    <trends>180d</trends>
+                    <units>Lists</units>
+                    <port>161</port>
+                    <description>Free space in cyan drum unit for waste toner remaining, counting in lists</description>
+                    <applications>
+                        <application>
+                            <name>Drum unit</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Magenta drum unit toner lvl %</name>
+                    <type>CALCULATED</type>
+                    <key>drum.magenta.toner.lvl</key>
+                    <delay>2m</delay>
+                    <history>2w</history>
+                    <trends>180d</trends>
+                    <units>%</units>
+                    <params>100*last(&quot;drum.magenta.toner.remaining&quot;)/last(&quot;drum.magenta.toner.max&quot;)</params>
+                    <description>Free space in magenta drum unit for waste toner remaining, counting in %</description>
+                    <applications>
+                        <application>
+                            <name>Drum unit</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}&lt;10</expression>
+                            <name>Magenta drum unit free space remaining level is lower than 10%</name>
+                            <priority>HIGH</priority>
+                            <tags>
+                                <tag>
+                                    <tag>#printer</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Magenta drum unit toner max lvl</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>public</snmp_community>
+                    <snmp_oid>1.3.6.1.2.1.43.11.1.1.8.1.7</snmp_oid>
+                    <key>drum.magenta.toner.max</key>
+                    <delay>2m</delay>
+                    <history>2w</history>
+                    <trends>180d</trends>
+                    <units>Lists</units>
+                    <port>161</port>
+                    <description>Max free space in magenta drum unit for waste toner remaining, counting in lists</description>
+                    <applications>
+                        <application>
+                            <name>Drum unit</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Magenta drum unit toner lvl</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>public</snmp_community>
+                    <snmp_oid>1.3.6.1.2.1.43.11.1.1.9.1.7</snmp_oid>
+                    <key>drum.magenta.toner.remaining</key>
+                    <delay>2m</delay>
+                    <history>2w</history>
+                    <trends>180d</trends>
+                    <units>Lists</units>
+                    <port>161</port>
+                    <description>Free space in magenta drum unit for waste toner remaining, counting in lists</description>
+                    <applications>
+                        <application>
+                            <name>Drum unit</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Yellow drum unit toner lvl %</name>
+                    <type>CALCULATED</type>
+                    <key>drum.yellow.toner.lvl</key>
+                    <delay>2m</delay>
+                    <history>2w</history>
+                    <trends>180d</trends>
+                    <units>%</units>
+                    <params>100*last(&quot;drum.yellow.toner.remaining&quot;)/last(&quot;drum.yellow.toner.max&quot;)</params>
+                    <description>Free space in yellow drum unit for waste toner remaining, counting in %</description>
+                    <applications>
+                        <application>
+                            <name>Drum unit</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}&lt;10</expression>
+                            <name>Yellow drum unit free space remaining level is lower than 10%</name>
+                            <priority>HIGH</priority>
+                            <tags>
+                                <tag>
+                                    <tag>#printer</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Yellow drum unit toner max lvl</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>public</snmp_community>
+                    <snmp_oid>1.3.6.1.2.1.43.11.1.1.8.1.8</snmp_oid>
+                    <key>drum.yellow.toner.max</key>
+                    <delay>2m</delay>
+                    <history>2w</history>
+                    <trends>180d</trends>
+                    <units>Lists</units>
+                    <port>161</port>
+                    <description>Max free space in yellow drum unit for waste toner remaining, counting in lists</description>
+                    <applications>
+                        <application>
+                            <name>Drum unit</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Yellow drum unit toner lvl</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>public</snmp_community>
+                    <snmp_oid>1.3.6.1.2.1.43.11.1.1.9.1.8</snmp_oid>
+                    <key>drum.yellow.toner.remaining</key>
+                    <delay>2m</delay>
+                    <history>2w</history>
+                    <trends>180d</trends>
+                    <units>Lists</units>
+                    <port>161</port>
+                    <description>Free space in yellow drum unit for waste toner remaining, counting in lists</description>
+                    <applications>
+                        <application>
+                            <name>Drum unit</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Magenta cartridge toner lvl %</name>
+                    <type>CALCULATED</type>
+                    <key>magenta.toner.lvl</key>
+                    <delay>2m</delay>
+                    <history>2w</history>
+                    <trends>180d</trends>
+                    <units>%</units>
+                    <params>100*last(&quot;magenta.toner.remaining&quot;)/last(&quot;magenta.toner.max&quot;)</params>
+                    <description>Magenta toner remaining lvl in %</description>
+                    <applications>
+                        <application>
+                            <name>Cartridge</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}=0</expression>
+                            <name>Magenta cartridge toner is runned out</name>
+                            <priority>HIGH</priority>
+                            <description>If the toner is 0, then it should have run out.</description>
+                            <dependencies>
+                                <dependency>
+                                    <name>Magenta toner remaining level is lower than 10%</name>
+                                    <expression>{Template HP CM6040 SNMPv2:magenta.toner.lvl.last()}&lt;10</expression>
+                                </dependency>
+                            </dependencies>
+                            <tags>
+                                <tag>
+                                    <tag>#printer</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                        <trigger>
+                            <expression>{last()}&lt;10</expression>
+                            <name>Magenta toner remaining level is lower than 10%</name>
+                            <priority>AVERAGE</priority>
+                            <description>Level of remeinaning magenta toner is lower than 10%</description>
+                            <tags>
+                                <tag>
+                                    <tag>#printer</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Magenta cartridge toner max lvl</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>public</snmp_community>
+                    <snmp_oid>1.3.6.1.2.1.43.11.1.1.8.1.3</snmp_oid>
+                    <key>magenta.toner.max</key>
+                    <delay>2m</delay>
+                    <history>2w</history>
+                    <trends>180d</trends>
+                    <units>Lists</units>
+                    <port>161</port>
+                    <description>Magenta cartridge toner max lvl in lists</description>
+                    <applications>
+                        <application>
+                            <name>Cartridge</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Magenta cartridge toner lvl</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>public</snmp_community>
+                    <snmp_oid>1.3.6.1.2.1.43.11.1.1.9.1.3</snmp_oid>
+                    <key>magenta.toner.remaining</key>
+                    <delay>2m</delay>
+                    <history>2w</history>
+                    <trends>180d</trends>
+                    <units>Lists</units>
+                    <port>161</port>
+                    <description>Magenta cartridge toner remaining in lists</description>
+                    <applications>
+                        <application>
+                            <name>Cartridge</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Pages printed since restart</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>public</snmp_community>
+                    <snmp_oid>1.3.6.1.2.1.43.10.2.1.5.1.1</snmp_oid>
+                    <key>pages.printed.restart</key>
+                    <history>2w</history>
+                    <port>161</port>
+                    <description>Printed pages since last restart</description>
+                    <applications>
+                        <application>
+                            <name>General</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Pages printed total</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>public</snmp_community>
+                    <snmp_oid>1.3.6.1.2.1.43.10.2.1.4.1.1</snmp_oid>
+                    <key>pages.printed.total</key>
+                    <history>2w</history>
+                    <port>161</port>
+                    <description>Pages printed total in lifetime</description>
+                    <applications>
+                        <application>
+                            <name>General</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Traps codes main</name>
+                    <type>SNMP_TRAP</type>
+                    <key>snmptrap[&quot;SNMPv2-SMI::enterprises.11.2.3.9.1.0&quot;]</key>
+                    <delay>0</delay>
+                    <history>1w</history>
+                    <trends>0</trends>
+                    <value_type>LOG</value_type>
+                    <applications>
+                        <application>
+                            <name>Status</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Yellow cartridge toner lvl %</name>
+                    <type>CALCULATED</type>
+                    <key>yellow.toner.lvl</key>
+                    <delay>2m</delay>
+                    <history>2w</history>
+                    <trends>180d</trends>
+                    <units>%</units>
+                    <params>100*last(&quot;yellow.toner.remaining&quot;)/last(&quot;yellow.toner.max&quot;)</params>
+                    <description>Yellow toner remaining lvl in %</description>
+                    <applications>
+                        <application>
+                            <name>Cartridge</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}=0</expression>
+                            <name>Yellow cartridge toner is runned out</name>
+                            <priority>HIGH</priority>
+                            <description>If the toner is 0, then it should have run out.</description>
+                            <dependencies>
+                                <dependency>
+                                    <name>Yellow toner remaining level is lower than 10%</name>
+                                    <expression>{Template HP CM6040 SNMPv2:yellow.toner.lvl.last()}&lt;10</expression>
+                                </dependency>
+                            </dependencies>
+                            <tags>
+                                <tag>
+                                    <tag>#printer</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                        <trigger>
+                            <expression>{last()}&lt;10</expression>
+                            <name>Yellow toner remaining level is lower than 10%</name>
+                            <priority>AVERAGE</priority>
+                            <description>Level of remeinaning yellow toner is lower than 10%</description>
+                            <tags>
+                                <tag>
+                                    <tag>#printer</tag>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Yellow cartridge toner max</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>public</snmp_community>
+                    <snmp_oid>1.3.6.1.2.1.43.11.1.1.8.1.4</snmp_oid>
+                    <key>yellow.toner.max</key>
+                    <delay>2m</delay>
+                    <history>2w</history>
+                    <trends>180d</trends>
+                    <units>Lists</units>
+                    <port>161</port>
+                    <description>Yellow cartridge toner max in lists</description>
+                    <applications>
+                        <application>
+                            <name>Cartridge</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Yellow cartridge toner lvl</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>public</snmp_community>
+                    <snmp_oid>1.3.6.1.2.1.43.11.1.1.9.1.4</snmp_oid>
+                    <key>yellow.toner.remaining</key>
+                    <delay>2m</delay>
+                    <history>2w</history>
+                    <trends>180d</trends>
+                    <units>Lists</units>
+                    <port>161</port>
+                    <description>Yellow cartridge toner remaining in lists</description>
+                    <applications>
+                        <application>
+                            <name>Cartridge</name>
+                        </application>
+                    </applications>
+                </item>
+            </items>
+            <macros>
+                <macro>
+                    <macro>{$CODE_ADD_PAPER}</macro>
+                    <value>41002</value>
+                </macro>
+                <macro>
+                    <macro>{$CODE_CARTRIDGE_OUT}</macro>
+                    <value>40300</value>
+                </macro>
+                <macro>
+                    <macro>{$CODE_FUSER_DOOR}</macro>
+                    <value>40021</value>
+                </macro>
+                <macro>
+                    <macro>{$CODE_INPUT_TRAY}</macro>
+                    <value>40050</value>
+                </macro>
+                <macro>
+                    <macro>{$CODE_PAPER_JAM}</macro>
+                    <value>43021</value>
+                </macro>
+                <macro>
+                    <macro>{$CODE_SUCCESS}</macro>
+                    <value>40079</value>
+                </macro>
+                <macro>
+                    <macro>{$CODE_WARMUP}</macro>
+                    <value>10031</value>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>Black cartridge toner %</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>000000</color>
+                    <item>
+                        <host>Template HP CM6040 SNMPv2</host>
+                        <key>black.toner.lvl</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Black drum free space %</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>000000</color>
+                    <item>
+                        <host>Template HP CM6040 SNMPv2</host>
+                        <key>drum.black.toner.lvl</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Cyan cartridge toner %</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>00FFFF</color>
+                    <item>
+                        <host>Template HP CM6040 SNMPv2</host>
+                        <key>cyan.toner.lvl</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Cyan drum free space %</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>00FFFF</color>
+                    <item>
+                        <host>Template HP CM6040 SNMPv2</host>
+                        <key>drum.cyan.toner.lvl</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>ICMP Ping response time</name>
+            <graph_items>
+                <graph_item>
+                    <color>1A7C11</color>
+                    <item>
+                        <host>Template HP CM6040 SNMPv2</host>
+                        <key>icmppingsec</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Magenta cartrigde toner %</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>FF0080</color>
+                    <item>
+                        <host>Template HP CM6040 SNMPv2</host>
+                        <key>magenta.toner.lvl</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Magenta drum free space %</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>FF0080</color>
+                    <item>
+                        <host>Template HP CM6040 SNMPv2</host>
+                        <key>drum.magenta.toner.lvl</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Pages printed total</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>1A7C11</color>
+                    <yaxisside>RIGHT</yaxisside>
+                    <item>
+                        <host>Template HP CM6040 SNMPv2</host>
+                        <key>pages.printed.total</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Printed pages since restart</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>1A7C11</color>
+                    <yaxisside>RIGHT</yaxisside>
+                    <item>
+                        <host>Template HP CM6040 SNMPv2</host>
+                        <key>pages.printed.restart</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Yellow cartridge toner %</name>
+            <graph_items>
+                <graph_item>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>FFFF00</color>
+                    <item>
+                        <host>Template HP CM6040 SNMPv2</host>
+                        <key>yellow.toner.lvl</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Yellow drum free space %</name>
+            <graph_items>
+                <graph_item>
+                    <color>FFFF00</color>
+                    <item>
+                        <host>Template HP CM6040 SNMPv2</host>
+                        <key>drum.yellow.toner.lvl</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>

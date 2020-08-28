@@ -1,5 +1,5 @@
 # zabbix-templates
-Here some custom templates for zabbix 4.0+
+Here some custom templates for zabbix 4.4
 
 printer_hp_6040 - Template for SNMP monitoring HP Color LazerJet CM 6040 MFP, maded from Template Net Network Generic Device version: 0.15.
 With this template you can gather some metrics like: toner level at each cartridge, free space in image drums (these are used as toner waste bunkers), count of printed pages.
